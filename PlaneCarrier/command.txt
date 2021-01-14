@@ -1,0 +1,7 @@
+hadoop jar /home/hadoop/hadoop-3.2.1/share/hadoop/tools/lib/hadoop-streaming-3.2.1.jar -mapper "'/home/hadoop/Desktop/big-data/PlaneCarrier/Task 1 - BD_0002_0275_0314_0366_mapper.py' 'aircraft carrier'" -reducer "'/home/hadoop/Desktop/big-data/PlaneCarrier/Task 1 - BD_0002_0275_0314_0366_reducer.py' 'aircraft carrier'" -input /user/hadoop/input/planecarrier-input -output /user/hadoop/output/planecarrier-output/planecarrier_task_1-output
+
+hadoop jar /home/hadoop/hadoop-3.2.1/share/hadoop/tools/lib/hadoop-streaming-3.2.1.jar -mapper "'/home/hadoop/Desktop/big-data/PlaneCarrier/Task 2 - BD_0002_0275_0314_0366_mapper.py' 'aircraft carrier' 100" -reducer "'/home/hadoop/Desktop/big-data/PlaneCarrier/Task 2 - BD_0002_0275_0314_0366_reducer.py' 'aircraft carrier' 100" -input /user/hadoop/input/planecarrier-input -output /user/hadoop/output/planecarrier-output/planecarrier_task_2-output
+
+cat Input/plane_carriers.ndjson | python3 "Task 1 - BD_0002_0275_0314_0366_mapper.py" 'aircraft carrier' | sort -k 1,1 | python3 "Task 1 - BD_0002_0275_0314_0366_reducer.py" > output_file.txt
+
+cat Input/plane_carriers.ndjson | python3 "Task 2 - BD_0002_0275_0314_0366_mapper.py" 'aircraft carrier' 100 | sort -k 1,1 | python3 "Task 2 - BD_0002_0275_0314_0366_reducer.py" > output_file.txt

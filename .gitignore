@@ -1,0 +1,9 @@
+*.ndjson
+*.csv
+.vscode/
+PageRank/v
+PageRank/v1
+PageRank/log
+PageRank/output*
+Quickdraw-Spark/log*
+Quickdraw-Spark/output*

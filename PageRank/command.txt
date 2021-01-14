@@ -1,0 +1,41 @@
+# HADOOP
+
+## Task 1
+
+hadoop jar /home/hadoop/hadoop-3.2.1/share/hadoop/tools/lib/hadoop-streaming-3.2.1.jar \
+-mapper "'/home/hadoop/Desktop/big-data/PageRank/mapper-1.py'" \
+-reducer "'/home/hadoop/Desktop/big-data/PageRank/reducer-1.py' '/home/hadoop/Desktop/big-data/PageRank/v'" \
+-input /user/hadoop/input/PageRank/web-Google.txt \
+-output /user/hadoop/output/PageRank/task-1-output
+
+hadoop jar /home/hadoop/hadoop-3.2.1/share/hadoop/tools/lib/hadoop-streaming-3.2.1.jar \
+-mapper "'/home/hadoop/Desktop/big-data/PageRank/mapper-1.py'" \
+-reducer "'/home/hadoop/Desktop/big-data/PageRank/reducer-1.py' '/home/hadoop/Desktop/big-data/PageRank/v'" \
+-input /user/hadoop/input/PageRank/sample.txt \
+-output /user/hadoop/output/PageRank/task-1-output
+
+## Task 2
+
+hadoop jar /home/hadoop/hadoop-3.2.1/share/hadoop/tools/lib/hadoop-streaming-3.2.1.jar \
+-mapper "'/home/hadoop/Desktop/big-data/PageRank/mapper-2.py' '/home/hadoop/Desktop/big-data/PageRank/v'" \
+-reducer "'/home/hadoop/Desktop/big-data/PageRank/reducer-2.py'" \
+-input /user/hadoop/output/PageRank/task-1-output/part-00000 \
+-output /user/hadoop/output/PageRank/task-2-output
+
+# LOCAL
+
+## Task 1
+
+cat Input/sample.txt | python3 BD_0002_0275_0314_0366_mapper_t1.py | sort -k 1,1 | python3 BD_0002_0275_0314_0366_reducer_t1.py /home/hadoop/Desktop/big-data/PageRank/v > output1
+
+cat Input/sample2.txt | python3 mapper-1.py | sort -k 1,1 | python3 reducer-1.py /home/hadoop/Desktop/big-data/PageRank/v > output1
+
+cat Input/web-Google.txt | python3 mapper-1.py | sort -k 1,1 | python3 reducer-1.py /home/hadoop/Desktop/big-data/PageRank/v > output1
+
+## Task 2
+
+cat output1 | python3 BD_0002_0275_0314_0366_mapper_t2.py v | sort -k 1,1 | python3 BD_0002_0275_0314_0366_reducer_t2.py > output2
+
+# RESET OUTPUT DIR
+
+hdfs dfs -rm -R /user/hadoop/output/PageRank/task-*
